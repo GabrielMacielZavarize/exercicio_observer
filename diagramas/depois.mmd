@@ -1,0 +1,51 @@
+classDiagram
+    class Sujeito {
+        <<interface>>
+        +registrarObservador(Observador observador) void
+        +removerObservador(Observador observador) void
+        +notificarObservadores() void
+    }
+    class Observador {
+        <<interface>>
+        +atualizar(Medicao medicao) void
+    }
+    class Medicao {
+        <<record>>
+        +temperatura() double
+        +umidade() double
+        +pressao() double
+    }
+    class EstacaoMeteorologica {
+        -double temperatura
+        -double umidade
+        -double pressao
+        -List~Observador~ observadores
+        +registrarObservador(Observador observador) void
+        +removerObservador(Observador observador) void
+        +notificarObservadores() void
+        +setMedicoes(double temperatura, double umidade, double pressao) void
+        +getTemperatura() double
+        +getUmidade() double
+        +getPressao() double
+    }
+    class DisplayTemperatura {
+        +atualizar(Medicao medicao) void
+    }
+    class DisplayEstatisticas {
+        -List~Double~ historico
+        +atualizar(Medicao medicao) void
+    }
+    class DisplayUmidade {
+        +atualizar(Medicao medicao) void
+    }
+    class Main {
+        +main(String[] args)$ void
+    }
+    Sujeito <|.. EstacaoMeteorologica
+    Observador <|.. DisplayTemperatura
+    Observador <|.. DisplayEstatisticas
+    Observador <|.. DisplayUmidade
+    EstacaoMeteorologica o-- "0..*" Observador : observadores
+    Observador ..> Medicao : recebe
+    EstacaoMeteorologica ..> Medicao : cria
+    Main ..> EstacaoMeteorologica : registra e remove displays

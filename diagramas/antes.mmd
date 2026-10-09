@@ -1,0 +1,26 @@
+classDiagram
+    direction LR
+    class Main {
+        +main(String[] args)$ void
+    }
+    class EstacaoMeteorologica {
+        -double temperatura
+        -double umidade
+        -double pressao
+        -DisplayTemperatura displayTemperatura
+        -DisplayEstatisticas displayEstatisticas
+        +setMedicoes(double temperatura, double umidade, double pressao) void
+        +getTemperatura() double
+        +getUmidade() double
+        +getPressao() double
+    }
+    class DisplayTemperatura {
+        +atualizar(double temperatura) void
+    }
+    class DisplayEstatisticas {
+        -List~Double~ historico
+        +atualizar(double temperatura) void
+    }
+    Main ..> EstacaoMeteorologica : usa
+    EstacaoMeteorologica *-- DisplayTemperatura : cria e chama
+    EstacaoMeteorologica *-- DisplayEstatisticas : cria e chama
